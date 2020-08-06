@@ -30,7 +30,6 @@ public class MossGiant : Enemy
 
             if (transform.position == pointA.position)
             {
-                Debug.Log("CALLED");
                 _mossGiantAnim.SetTrigger("Idle_t");
                 _currentTarget = pointB.position;
             }
