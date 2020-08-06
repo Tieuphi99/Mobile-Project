@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     private Rigidbody2D _playerRb;
     private PlayerAnimation _playerAnimation;
     private SpriteRenderer _playerSpriteRenderer;
+    private SpriteRenderer _swordArcSpriteRenderer;
     [SerializeField] private float jumpForce = 5;
     [SerializeField] private float speed = 2.5f;
     private bool _isJumpAble;
@@ -18,6 +19,7 @@ public class Player : MonoBehaviour
         _playerRb = GetComponent<Rigidbody2D>();
         _playerAnimation = GetComponent<PlayerAnimation>();
         _playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        _swordArcSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -40,9 +42,9 @@ public class Player : MonoBehaviour
         float horizontalInput = Input.GetAxisRaw("Horizontal");
 
         _isOnGround = IsOnGround();
-        
-        Flip(horizontalInput);
 
+        Flip(horizontalInput);
+        
         if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
         {
             _playerRb.velocity = new Vector2(_playerRb.velocity.x, jumpForce);
@@ -56,7 +58,30 @@ public class Player : MonoBehaviour
 
     private void Flip(float horizontalInput)
     {
-        _playerSpriteRenderer.flipX = !(horizontalInput > 0);
+        if (horizontalInput > 0)
+        {
+            _playerSpriteRenderer.flipX = false;
+            _swordArcSpriteRenderer.flipY = false;
+
+            Vector3 newSwordArcPos = _swordArcSpriteRenderer.transform.localPosition;
+            newSwordArcPos.x = 1;
+            _swordArcSpriteRenderer.transform.localPosition = newSwordArcPos;
+            Vector3 newPlayerPos = _playerSpriteRenderer.transform.localPosition;
+            newPlayerPos.x = 0.09f;
+            _playerSpriteRenderer.transform.localPosition = newPlayerPos;
+        }
+        else if (horizontalInput < 0)
+        {
+            _playerSpriteRenderer.flipX = true;
+            _swordArcSpriteRenderer.flipY = true;
+
+            Vector3 newSwordArcPos = _swordArcSpriteRenderer.transform.localPosition;
+            newSwordArcPos.x = -1;
+            _swordArcSpriteRenderer.transform.localPosition = newSwordArcPos;
+            Vector3 newPlayerPos = _playerSpriteRenderer.transform.localPosition;
+            newPlayerPos.x = -0.09f;
+            _playerSpriteRenderer.transform.localPosition = newPlayerPos;
+        }
     }
 
     private bool IsOnGround()
