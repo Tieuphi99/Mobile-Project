@@ -6,8 +6,19 @@ public class Skeleton : Enemy, IDamageable
 {
     public int Health { get; set; }
 
+    public override void Init()
+    {
+        base.Init();
+        Health = health;
+    }
+
     public void Damage()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("HIT");
+        Health -= 1;
+        if (Health < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 }
