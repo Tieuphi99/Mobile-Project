@@ -15,7 +15,11 @@ public class Spider : Enemy, IDamageable
     }
     public void Damage()
     {
-        throw new System.NotImplementedException();
+        Health -= 1;
+        if (Health < 1)
+        {
+            Destroy(gameObject);
+        }
     }
 
     public override void Movement()

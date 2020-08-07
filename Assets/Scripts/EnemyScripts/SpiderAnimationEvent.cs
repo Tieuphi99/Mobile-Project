@@ -12,6 +12,7 @@ public class SpiderAnimationEvent : MonoBehaviour
         _spider = GetComponentInParent<Spider>();
     }
 
+    // Called in AnimationEvent
     public void FireAcid()
     {
         _spider.FireAcidBall();
