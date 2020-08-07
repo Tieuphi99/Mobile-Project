@@ -10,4 +10,9 @@ public class Spider : Enemy, IDamageable
     {
         throw new System.NotImplementedException();
     }
+
+    public override void Movement()
+    {
+        
+    }
 }
