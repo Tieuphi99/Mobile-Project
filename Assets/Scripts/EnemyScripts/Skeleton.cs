@@ -14,16 +14,18 @@ public class Skeleton : Enemy, IDamageable
 
     public void Damage()
     {
+        if (isDead)
+        {
+            return;
+        }
+        
         Health -= 1;
         if (Health < 1)
         {
-            if (!isDead)
-            {
-                anim.SetTrigger("Death_t");
-                GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
-                Diamond diamondScript = diamond.GetComponent<Diamond>();
-                diamondScript.gems = gems;
-            }
+            anim.SetTrigger("Death_t");
+            GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
+            Diamond diamondScript = diamond.GetComponent<Diamond>();
+            diamondScript.gems = gems;
             isDead = true;
         }
         else
