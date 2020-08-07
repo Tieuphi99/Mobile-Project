@@ -14,7 +14,6 @@ public class Skeleton : Enemy, IDamageable
 
     public void Damage()
     {
-        Debug.Log("HIT");
         Health -= 1;
         anim.SetTrigger("Hit_t");
         anim.SetBool("Combat_b", true);

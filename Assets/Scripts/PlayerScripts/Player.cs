@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     private Rigidbody2D _playerRb;
     private PlayerAnimation _playerAnimation;
@@ -12,6 +12,8 @@ public class Player : MonoBehaviour
     [SerializeField] private float speed = 2.5f;
     private bool _isJumpAble;
     private bool _isOnGround;
+
+    public int Health { get; set; }
 
     // Start is called before the first frame update
     void Start()
@@ -97,6 +99,10 @@ public class Player : MonoBehaviour
         }
 
         return false;
+    }
+
+    public void Damage()
+    {
     }
 
     IEnumerator IsJumpAble()
