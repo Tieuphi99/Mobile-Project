@@ -12,6 +12,12 @@ public class Skeleton : Enemy, IDamageable
         Health = health;
     }
 
+    public override void Movement()
+    {
+        base.Movement();
+        Debug.Log($"Distance: {distance}");
+    }
+
     public void Damage()
     {
         Debug.Log("HIT");

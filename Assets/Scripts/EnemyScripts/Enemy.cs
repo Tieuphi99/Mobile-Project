@@ -8,26 +8,41 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int health;
     [SerializeField] protected int speed;
     [SerializeField] protected int gems;
+    protected float distance;
     [SerializeField] protected Transform pointA;
     [SerializeField] protected Transform pointB;
-    [SerializeField] protected Vector3 currentTarget;
-    [SerializeField] protected Animator anim;
-    [SerializeField] protected SpriteRenderer sprite;
+    protected Vector3 currentTarget;
+    protected Animator anim;
+    protected SpriteRenderer sprite;
+    protected Player player;
 
     private void Start()
     {
         Init();
     }
 
+    public virtual void Update()
+    {
+        Movement();
+    }
+
     public virtual void Init()
     {
         anim = GetComponentInChildren<Animator>();
         sprite = GetComponentInChildren<SpriteRenderer>();
+        player = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
     }
 
     public virtual void Movement()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
+        distance = Vector3.Distance(transform.localPosition, player.transform.localPosition);
+        if (distance > 2)
+        {
+            anim.SetBool("Combat_b", false);
+        }
+
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hit") &&
+            !anim.GetBool("Combat_b"))
         {
             if (currentTarget == pointA.position)
             {
@@ -51,10 +66,5 @@ public abstract class Enemy : MonoBehaviour
 
             transform.position = Vector3.MoveTowards(transform.position, currentTarget, speed * Time.deltaTime);
         }
-    }
-
-    public virtual void Update()
-    {
-        Movement();
     }
 }
