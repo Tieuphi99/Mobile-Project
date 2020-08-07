@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Player : MonoBehaviour, IDamageable
 {
+    public int diamond;
     private Rigidbody2D _playerRb;
     private PlayerAnimation _playerAnimation;
     private SpriteRenderer _playerSpriteRenderer;
