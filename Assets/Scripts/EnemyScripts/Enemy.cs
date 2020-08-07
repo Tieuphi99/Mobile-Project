@@ -27,7 +27,7 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Movement()
     {
-        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hit"))
         {
             if (currentTarget == pointA.position)
             {
