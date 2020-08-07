@@ -13,6 +13,7 @@ public abstract class Enemy : MonoBehaviour
     protected Vector3 direction;
     [SerializeField] protected Transform pointA;
     [SerializeField] protected Transform pointB;
+    [SerializeField] protected GameObject diamondPrefab;
     protected Vector3 currentTarget;
     protected Animator anim;
     protected SpriteRenderer sprite;

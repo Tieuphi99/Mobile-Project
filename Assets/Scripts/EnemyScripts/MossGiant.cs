@@ -15,6 +15,9 @@ public class MossGiant : Enemy, IDamageable
             if (!isDead)
             {
                 anim.SetTrigger("Death_t");
+                GameObject diamond = Instantiate(diamondPrefab, transform.position, Quaternion.identity);
+                Diamond diamondScript = diamond.GetComponent<Diamond>();
+                diamondScript.gems = gems;
             }
             isDead = true;
         }
