@@ -18,7 +18,16 @@ public class Spider : Enemy, IDamageable
         Health -= 1;
         if (Health < 1)
         {
-            Destroy(gameObject);
+            if (!isDead)
+            {
+                anim.SetTrigger("Death_t");
+            }
+            isDead = true;
+        }
+        else
+        {
+            anim.SetTrigger("Hit_t");
+            anim.SetBool("Combat_b", true);
         }
     }
 

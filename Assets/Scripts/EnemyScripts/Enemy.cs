@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int speed;
     [SerializeField] protected int gems;
     protected float distance;
+    protected bool isDead;
     protected Vector3 direction;
     [SerializeField] protected Transform pointA;
     [SerializeField] protected Transform pointB;
@@ -36,9 +37,12 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Movement()
     {
-        direction = transform.localPosition - player.transform.localPosition;
-        sprite.flipX = direction.x > 0;
-        
+        if (!isDead)
+        {
+            direction = transform.localPosition - player.transform.localPosition;
+            sprite.flipX = direction.x > 0;
+        }
+
         distance = Vector3.Distance(transform.localPosition, player.transform.localPosition);
         if (distance > 2)
         {
@@ -46,7 +50,7 @@ public abstract class Enemy : MonoBehaviour
         }
 
         if (!anim.GetCurrentAnimatorStateInfo(0).IsName("Idle") && !anim.GetCurrentAnimatorStateInfo(0).IsName("Hit") &&
-            !anim.GetBool("Combat_b"))
+            !anim.GetBool("Combat_b") && !isDead)
         {
             if (currentTarget == pointA.position)
             {
