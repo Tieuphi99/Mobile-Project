@@ -9,6 +9,7 @@ public abstract class Enemy : MonoBehaviour
     [SerializeField] protected int speed;
     [SerializeField] protected int gems;
     protected float distance;
+    protected Vector3 direction;
     [SerializeField] protected Transform pointA;
     [SerializeField] protected Transform pointB;
     protected Vector3 currentTarget;
@@ -35,6 +36,9 @@ public abstract class Enemy : MonoBehaviour
 
     public virtual void Movement()
     {
+        direction = transform.localPosition - player.transform.localPosition;
+        sprite.flipX = direction.x > 0;
+        
         distance = Vector3.Distance(transform.localPosition, player.transform.localPosition);
         if (distance > 2)
         {
