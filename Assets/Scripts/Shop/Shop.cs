@@ -6,16 +6,19 @@ using UnityEngine;
 public class Shop : MonoBehaviour
 {
     [SerializeField] private GameObject shopPanel;
+    private int _currentSelectedItem;
+    private int _currentSelectedItemPrice;
+    private Player _player;
     
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Player")
         {
-            Player player = other.GetComponent<Player>();
+            _player = other.GetComponent<Player>();
 
-            if (player != null)
+            if (_player != null)
             {
-                UIManager.Instance.OpenShop(player.diamond);
+                UIManager.Instance.OpenShop(_player.diamond);
             }
             
             shopPanel.SetActive(true);
@@ -36,13 +39,34 @@ public class Shop : MonoBehaviour
         {
             case 0:
                 UIManager.Instance.UpdateSelectionItem(92);
+                _currentSelectedItem = 0;
+                _currentSelectedItemPrice = 200;
                 break;
             case 1:
                 UIManager.Instance.UpdateSelectionItem(-16);
+                _currentSelectedItem = 1;
+                _currentSelectedItemPrice = 400;
                 break;
             case 2:
                 UIManager.Instance.UpdateSelectionItem(-124);
+                _currentSelectedItem = 2;
+                _currentSelectedItemPrice = 100;
                 break;
+        }
+    }
+
+    public void BuyItem()
+    {
+        if (_player.diamond >= _currentSelectedItemPrice)
+        {
+            // buy
+            _player.diamond -= _currentSelectedItemPrice;
+            shopPanel.SetActive(false);
+        }
+        else
+        {
+            // no buy
+            shopPanel.SetActive(false);
         }
     }
 }
