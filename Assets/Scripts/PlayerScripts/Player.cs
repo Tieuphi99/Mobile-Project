@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IDamageable
         _playerAnimation = GetComponent<PlayerAnimation>();
         _playerSpriteRenderer = GetComponentInChildren<SpriteRenderer>();
         _swordArcSpriteRenderer = transform.GetChild(1).GetComponent<SpriteRenderer>();
+        Health = 4;
     }
 
     // Update is called once per frame
@@ -47,7 +48,7 @@ public class Player : MonoBehaviour, IDamageable
         _isOnGround = IsOnGround();
 
         Flip(horizontalInput);
-        
+
         if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
         {
             _playerRb.velocity = new Vector2(_playerRb.velocity.x, jumpForce);
@@ -104,6 +105,17 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Damage()
     {
+        Health -= 1;
+        if (Health < 0)
+        {
+            return;
+        }
+
+        UIManager.Instance.UpdateLives(Health);
+        if (Health < 1)
+        {
+            _playerAnimation.Death();
+        }
     }
 
     IEnumerator IsJumpAble()

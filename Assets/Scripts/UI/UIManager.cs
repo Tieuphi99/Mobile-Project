@@ -25,6 +25,7 @@ public class UIManager : MonoBehaviour
     public Text shopGemCountText;
     public Text hUDGemCountText;
     public Image selectionImage;
+    public List<Image> lifeUnitImages;
 
     private void Awake()
     {
@@ -45,5 +46,15 @@ public class UIManager : MonoBehaviour
     public void UpdateGemCount(int gem)
     {
         hUDGemCountText.text = $"{gem}";
+    }
+
+    public void UpdateLives(int lifeUnitIndex)
+    {
+        if (lifeUnitIndex < 0)
+        {
+            return;
+        }
+
+        lifeUnitImages[lifeUnitIndex].enabled = false;
     }
 }
