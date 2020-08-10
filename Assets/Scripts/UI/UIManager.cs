@@ -22,8 +22,14 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public Text gemCountText;
+    public Text shopGemCountText;
+    public Text hUDGemCountText;
     public Image selectionImage;
+
+    private void Awake()
+    {
+        _instance = this;
+    }
 
     public void UpdateSelectionItem(int yPos)
     {
@@ -33,11 +39,11 @@ public class UIManager : MonoBehaviour
 
     public void OpenShop(int gemCount)
     {
-        gemCountText.text = $"{gemCount.ToString()}G";
+        shopGemCountText.text = $"{gemCount}G";
     }
 
-    private void Awake()
+    public void UpdateGemCount(int gem)
     {
-        _instance = this;
+        hUDGemCountText.text = $"{gem}";
     }
 }
