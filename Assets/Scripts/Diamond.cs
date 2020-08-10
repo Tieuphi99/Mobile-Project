@@ -14,7 +14,6 @@ public class Diamond : MonoBehaviour
             {
                 player.diamond += gems;
                 UIManager.Instance.UpdateGemCount(player.diamond);
-                Debug.Log("CALLED");
                 Destroy(gameObject);
             }
         }
