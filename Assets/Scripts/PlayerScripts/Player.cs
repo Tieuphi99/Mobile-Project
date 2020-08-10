@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityStandardAssets.CrossPlatformInput;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Attack()
     {
-        if (Input.GetMouseButtonDown(0) && _isOnGround)
+        if (CrossPlatformInputManager.GetButtonDown("ButtonA") && _isOnGround)
         {
             _playerAnimation.Attack();
         }
@@ -42,13 +43,13 @@ public class Player : MonoBehaviour, IDamageable
 
     private void Movement()
     {
-        float horizontalInput = Input.GetAxisRaw("Horizontal");
+        float horizontalInput = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 
         _isOnGround = IsOnGround();
 
         Flip(horizontalInput);
 
-        if (Input.GetKeyDown(KeyCode.Space) && _isOnGround)
+        if ((Input.GetKeyDown(KeyCode.Space) || CrossPlatformInputManager.GetButtonDown("ButtonB")) && _isOnGround)
         {
             _playerRb.velocity = new Vector2(_playerRb.velocity.x, jumpForce);
             _playerAnimation.Jump(true);
