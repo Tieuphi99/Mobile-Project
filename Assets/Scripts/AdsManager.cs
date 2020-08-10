@@ -20,7 +20,8 @@ public class AdsManager : MonoBehaviour
         switch (result)
         {
             case ShowResult.Finished:
-                
+                GameManager.Instance.Player.diamond += 200;
+                UIManager.Instance.UpdateGemCount(GameManager.Instance.Player.diamond);
                 break;
             case ShowResult.Skipped:
                 Debug.Log("Skipped, no reward!");
